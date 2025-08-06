@@ -102,7 +102,7 @@ const PlayerInterface: React.FC = () => {
               <span className="stat-label">Players</span>
             </div>
             <div className="stat">
-              <span className="stat-number">{pressedPlayers.length - 1}</span>
+              <span className="stat-number">{pressedPlayers.length}</span>
               <span className="stat-label">Buzzed</span>
             </div>
           </div>
@@ -119,7 +119,7 @@ const PlayerInterface: React.FC = () => {
                   {game.countdownActive ? (
                     <div className="status-badge countdown">
                       <span className="status-dot"></span>
-                      STARTING IN {Math.ceil(countdownLeft)}
+                      STARTING IN {countdownLeft > 0 ? Math.floor(countdownLeft) + 1 : 0}
                     </div>
                   ) : game.isActive ? (
                     <div className="status-badge active">
@@ -151,11 +151,11 @@ const PlayerInterface: React.FC = () => {
                     <div className="countdown-display-large">
                       <div className="countdown-circle">
                         <div className="countdown-number-large">
-                          {Math.ceil(countdownLeft)}
+                          {countdownLeft > 0 ? Math.floor(countdownLeft) + 1 : 0}
                         </div>
                       </div>
                       <div className="countdown-message">
-                        Get ready! Buzzers will be available in {Math.ceil(countdownLeft)} seconds
+                        Get ready! Buzzers will be available in {countdownLeft > 0 ? Math.floor(countdownLeft) + 1 : 0} seconds
                       </div>
                     </div>
                   ) : game.isActive && (
@@ -182,7 +182,7 @@ const PlayerInterface: React.FC = () => {
                             className="timer-progress"
                           />
                         </svg>
-                        <div className="timer-value">{Math.ceil(timeLeft)}</div>
+                        <div className="timer-value">{timeLeft > 0 ? Math.floor(timeLeft) + 1 : 0}</div>
                       </div>
                       <div className="timer-label">seconds left</div>
                     </div>
@@ -225,7 +225,7 @@ const PlayerInterface: React.FC = () => {
 
               {game.countdownActive && (
                 <div className="countdown-message">
-                  Get ready! Buzzers will be enabled in {Math.ceil(countdownLeft)} seconds
+                  Get ready! Buzzers will be enabled in {countdownLeft > 0 ? Math.floor(countdownLeft) + 1 : 0} seconds
                 </div>
               )}
 
