@@ -17,7 +17,7 @@ services:
     image: buzzer-client
     container_name: buzzer-client
     ports:
-      - "80:80"
+      - "3000:80"
     depends_on:
       - server
     networks:
