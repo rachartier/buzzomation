@@ -1,0 +1,31 @@
+services:
+  server:
+    build: ./server
+    platform: aarch64
+    image: buzzer-server
+    container_name: buzzer-server
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    networks:
+      - buzzer-network
+    restart: unless-stopped
+
+  client:
+    build: ./client
+    platform: aarch64
+    image: buzzer-client
+    container_name: buzzer-client
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    networks:
+      - buzzer-network
+    restart: unless-stopped
+
+networks:
+  buzzer-network:
+    driver: bridge
