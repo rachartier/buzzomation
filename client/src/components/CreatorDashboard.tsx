@@ -269,7 +269,7 @@ const CreatorDashboard: React.FC = () => {
                       <div className="status-indicator countdown">STARTING IN</div>
                       <div className="countdown-display">
                         <div className="countdown-number">
-                          {Math.ceil(countdownLeft)}
+                          {countdownLeft > 0 ? Math.floor(countdownLeft) + 1 : 0}
                         </div>
                         <span className="countdown-unit">seconds</span>
                       </div>
@@ -281,7 +281,7 @@ const CreatorDashboard: React.FC = () => {
                         <Clock size={16} />
                         <span className="timer-number">
                           {" "}
-                          {Math.ceil(timeLeft)}
+                          {timeLeft > 0 ? Math.floor(timeLeft) + 1 : 0}
                         </span>
                         <span className="timer-unit"> seconds left</span>
                       </div>
