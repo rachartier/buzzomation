@@ -1,0 +1,147 @@
+@import "../styles/variables.css";
+
+.buzzer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--spacing-xl) 0;
+}
+
+.buzzer-button {
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-full);
+  border: none;
+  font-size: var(--font-2xl);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.buzzer-button.ready {
+  background: var(--color-success);
+  color: white;
+  transform: scale(1);
+}
+
+.buzzer-button.ready:hover {
+  transform: scale(1.05);
+  background: var(--color-success-hover);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.buzzer-button.ready:active {
+  transform: scale(0.95);
+}
+
+.buzzer-button.pressed {
+  background: var(--color-danger);
+  color: white;
+  transform: scale(0.9);
+}
+
+.buzzer-button.pressed.first-place {
+  background: var(--color-warning);
+  color: white;
+  transform: scale(0.9);
+  animation: glow-pulse 2s ease-in-out infinite;
+  box-shadow:
+    0 0 20px rgba(245, 158, 11, 0.6),
+    0 0 40px rgba(245, 158, 11, 0.4),
+    0 0 60px rgba(245, 158, 11, 0.2),
+    var(--shadow-lg);
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(245, 158, 11, 0.6),
+      0 0 40px rgba(245, 158, 11, 0.4),
+      0 0 60px rgba(245, 158, 11, 0.2),
+      var(--shadow-lg);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(245, 158, 11, 0.8),
+      0 0 60px rgba(245, 158, 11, 0.6),
+      0 0 90px rgba(245, 158, 11, 0.4),
+      var(--shadow-lg);
+  }
+}
+
+.buzzer-button.locked {
+  background: var(--color-text-muted);
+  color: white;
+  cursor: not-allowed;
+  transform: scale(0.95);
+}
+
+.buzzer-button.inactive {
+  background: var(--color-border-light);
+  color: var(--color-text-secondary);
+  cursor: not-allowed;
+  transform: scale(0.95);
+}
+
+.buzzer-text {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .buzzer-container {
+    margin: 20px 0;
+  }
+
+  .buzzer-button {
+    width: 180px;
+    height: 180px;
+    font-size: 1.3rem;
+    /* Improve touch interaction */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .buzzer-button:active {
+    transform: scale(0.92);
+  }
+
+  .buzzer-button.ready:hover {
+    /* Remove hover effects on mobile */
+    transform: scale(1);
+    background: var(--color-success);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .buzzer-button.ready:active {
+    transform: scale(0.92);
+    background: var(--color-success-hover);
+  }
+}
+
+@media (max-width: 480px) {
+  .buzzer-button {
+    width: 140px;
+    height: 140px;
+    font-size: 1.1rem;
+  }
+
+  .buzzer-button:active {
+    transform: scale(0.9);
+  }
+
+  .buzzer-button.ready:active {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 360px) {
+  .buzzer-button {
+    width: 120px;
+    height: 120px;
+    font-size: 1rem;
+  }
+}

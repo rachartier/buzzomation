@@ -1,0 +1,64 @@
+# Dependencies
+**/node_modules
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# Build outputs
+**/dist
+**/build
+**/.next
+**/.vite
+
+# Development files
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+# IDE and editor files
+**/.vscode
+**/.idea
+**/*.swp
+**/*.swo
+**/*~
+
+# OS generated files
+**/.DS_Store
+**/Thumbs.db
+**/*.log
+
+# Git
+**/.git
+**/.gitignore
+
+# Testing
+**/coverage
+**/.nyc_output
+
+# Runtime data
+**/pids
+**/*.pid
+**/*.seed
+**/*.pid.lock
+
+# Temporary folders
+**/tmp
+**/temp
+
+# Docker files
+**/Dockerfile*
+**/docker-compose*
+**/.dockerignore
+
+# Documentation
+**/README.md
+**/CHANGELOG.md
+**/LICENSE
+**/docs
+
+# Other
+**/.eslintrc*
+**/.prettierrc*
+**/jest.config*
+**/CSS_OPTIMIZATION_SUMMARY.md
