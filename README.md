@@ -21,9 +21,10 @@ docker compose build
 ## How to run
 To run the application, use:
 ```
-docker compose up
+docker compose up -d
 ```
 
+You can then access the webui on `http://localhost:3000` 
 
 # API Endpoints
 
