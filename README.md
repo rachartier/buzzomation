@@ -1,5 +1,16 @@
 # Buzzomation
 
+<img width="2558" height="1278" alt="image" src="https://github.com/user-attachments/assets/930c84ea-a67b-46ec-b429-68fcd2869b5c" />
+
+### Host Dashboard
+<img width="2558" height="1278" alt="image" src="https://github.com/user-attachments/assets/91bbf680-30c7-4f57-b742-80443e8267b4" />
+
+### Player Dashboard
+<img width="2559" height="1278" alt="image" src="https://github.com/user-attachments/assets/63cb20b1-25e7-4547-a182-aff239eb5194" />
+
+<img width="2558" height="1271" alt="image" src="https://github.com/user-attachments/assets/48d0a52e-35dc-4aca-af86-8118eaf14458" />
+
+
 ## How to build
 
 Simply enter:
