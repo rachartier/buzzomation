@@ -33,7 +33,20 @@ export interface BuzzerEvent {
 }
 
 export interface WebSocketMessage {
-  type: 'game_updated' | 'player_joined' | 'player_left' | 'buzzer_pressed' | 'question_started' | 'countdown_started' | 'countdown_tick' | 'stop_question' | 'buzzers_cleared' | 'buzzers_locked' | 'buzzers_unlocked' | 'player_removed' | 'player_renamed';
+  type:
+    | "game_updated"
+    | "player_joined"
+    | "player_left"
+    | "buzzer_pressed"
+    | "question_started"
+    | "countdown_started"
+    | "countdown_tick"
+    | "stop_question"
+    | "buzzers_cleared"
+    | "buzzers_locked"
+    | "buzzers_unlocked"
+    | "player_removed"
+    | "player_renamed";
   data: any;
 }
 
@@ -48,6 +61,15 @@ export interface JoinGameRequest {
 }
 
 export interface GameAction {
-  type: 'set_question' | 'start_question' | 'instant_launch' | 'stop_question' | 'clear_buzzers' | 'lock_buzzers' | 'unlock_buzzers' | 'remove_player' | 'rename_player';
+  type:
+    | "set_question"
+    | "start_question"
+    | "instant_launch"
+    | "stop_question"
+    | "clear_buzzers"
+    | "lock_buzzers"
+    | "unlock_buzzers"
+    | "remove_player"
+    | "rename_player";
   data: any;
 }

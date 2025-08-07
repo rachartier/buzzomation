@@ -73,4 +73,3 @@ export interface GameAction {
     | "rename_player";
   data: any;
 }
-

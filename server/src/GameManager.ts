@@ -111,14 +111,42 @@ export class GameManager {
     playerId: string,
   ): { game: Game; buzzerEvent: BuzzerEvent } | null {
     const game = this.games.get(gameId);
-    if (!game || !game.players[playerId] || game.buzzersLocked) return null;
+
+    if (
+      !game ||
+      !game.players[playerId] ||
+      !game.isActive ||
+      game.buzzersLocked ||
+      game.countdownActive
+    ) {
+      console.log(
+        `Buzzer press rejected: game=${!!game}, player=${!!game?.players[playerId]}, isActive=${game?.isActive}, locked=${game?.buzzersLocked}, countdown=${game?.countdownActive}`,
+      );
+      return null;
+    }
 
     const player = game.players[playerId];
-    if (player.buzzerPressed) return null;
+    if (player.buzzerPressed) {
+      console.log(
+        `Buzzer press rejected: Player ${player.name} (${playerId}) already pressed`,
+      );
+      return null;
+    }
 
     const timestamp = Date.now();
     player.buzzerPressed = true;
     player.buzzerTimestamp = timestamp;
+
+    console.log(
+      `Buzzer press accepted: Player ${player.name} (${playerId}) at ${timestamp}`,
+    );
+    console.log(
+      `Current pressed players:`,
+      Object.values(game.players)
+        .filter((p) => p.buzzerPressed)
+        .map((p) => `${p.name} (${p.buzzerTimestamp})`)
+        .join(", "),
+    );
 
     return {
       game,
@@ -141,11 +169,20 @@ export class GameManager {
         break;
 
       case "start_question":
-        this.startCountdown(gameId, game.timeLimit, action.data.countdownDelay || 3);
+        this.startCountdown(
+          gameId,
+          game.timeLimit,
+          action.data.countdownDelay || 3,
+        );
         break;
 
       case "instant_launch":
-        this.startCountdown(gameId, action.data.timeLimit || 30, action.data.countdownDelay || 3, true);
+        this.startCountdown(
+          gameId,
+          action.data.timeLimit || 30,
+          action.data.countdownDelay || 3,
+          true,
+        );
         break;
 
       case "stop_question":
@@ -189,7 +226,12 @@ export class GameManager {
     return game;
   }
 
-  private startCountdown(gameId: string, timeLimit: number, countdownDelay: number, isInstantLaunch: boolean = false): void {
+  private startCountdown(
+    gameId: string,
+    timeLimit: number,
+    countdownDelay: number,
+    isInstantLaunch: boolean = false,
+  ): void {
     const game = this.games.get(gameId);
     if (!game) return;
 
@@ -197,39 +239,35 @@ export class GameManager {
     if (isInstantLaunch) {
       game.currentQuestion = "Open Buzzer Session";
     }
-    
+
     game.timeLimit = timeLimit;
     game.countdownActive = true;
     game.countdownStartTime = Date.now();
     game.countdownDuration = countdownDelay;
     this.clearAllBuzzers(game);
 
-    // Broadcast countdown started
     if (this.broadcastCallback) {
       this.broadcastCallback(gameId, {
         type: "countdown_started",
-        data: { game, countdownDelay }
+        data: { game, countdownDelay },
       });
     }
 
-    // Create countdown timer that ticks every second
     let remainingTime = countdownDelay;
     const countdownInterval = setInterval(() => {
       remainingTime--;
-      
+
       if (remainingTime > 0) {
-        // Broadcast countdown tick
         if (this.broadcastCallback) {
           this.broadcastCallback(gameId, {
             type: "countdown_tick",
-            data: { game, remainingTime }
+            data: { game, remainingTime },
           });
         }
       } else {
-        // Countdown finished, start the game
         clearInterval(countdownInterval);
         this.countdownTimers.delete(gameId);
-        
+
         const currentGame = this.games.get(gameId);
         if (currentGame) {
           currentGame.countdownActive = false;
@@ -238,14 +276,13 @@ export class GameManager {
           currentGame.isActive = true;
           currentGame.questionStartTime = Date.now();
           currentGame.buzzersLocked = false;
-          
+
           this.startGameTimer(gameId);
-          
-          // Broadcast game started
+
           if (this.broadcastCallback) {
             this.broadcastCallback(gameId, {
               type: "question_started",
-              data: { game: currentGame }
+              data: { game: currentGame },
             });
           }
         }
@@ -290,7 +327,6 @@ export class GameManager {
           `Auto-locked buzzers for game ${gameId} after ${currentGame.timeLimit}s`,
         );
 
-        // Broadcast the lock event
         if (this.broadcastCallback) {
           this.broadcastCallback(gameId, {
             type: "buzzers_locked",
@@ -324,7 +360,6 @@ export class GameManager {
             `Auto-locked buzzers for game ${gameId} after ${game.timeLimit}s (backup check)`,
           );
 
-          // Broadcast the lock event
           if (this.broadcastCallback) {
             this.broadcastCallback(gameId, {
               type: "buzzers_locked",

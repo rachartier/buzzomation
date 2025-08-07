@@ -170,12 +170,15 @@ export const useGame = () => {
     });
   }, []);
 
-  const instantLaunch = useCallback((timeLimit: number = 30, countdownDelay: number = 3) => {
-    gameService.executeGameAction({
-      type: "instant_launch",
-      data: { timeLimit, countdownDelay },
-    });
-  }, []);
+  const instantLaunch = useCallback(
+    (timeLimit: number = 30, countdownDelay: number = 3) => {
+      gameService.executeGameAction({
+        type: "instant_launch",
+        data: { timeLimit, countdownDelay },
+      });
+    },
+    [],
+  );
 
   return {
     gameState,
@@ -195,4 +198,3 @@ export const useGame = () => {
     renamePlayer,
   };
 };
-
