@@ -1,0 +1,3 @@
+[submodule "custom_clients/raspberry"]
+	path = custom_clients/raspberry
+	url = git@github.com:rachartier/buzzomation_raspberry_client.git
