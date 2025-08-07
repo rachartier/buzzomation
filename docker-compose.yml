@@ -1,7 +1,7 @@
 services:
   server:
     build: ./server
-    image: buzzer-server
+    image: rachartier/buzzomation-server:latest
     container_name: buzzer-server
     ports:
       - "3001:3001"
@@ -14,7 +14,7 @@ services:
 
   client:
     build: ./client
-    image: buzzer-client
+    image: rachartier/buzzomation-client:latest
     container_name: buzzer-client
     ports:
       - "3000:80"
