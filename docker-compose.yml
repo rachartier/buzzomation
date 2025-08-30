@@ -17,7 +17,7 @@ services:
     image: rachartier/buzzomation-client:latest
     container_name: buzzer-client
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - server
     networks:

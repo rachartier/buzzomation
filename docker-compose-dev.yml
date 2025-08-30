@@ -1,7 +1,6 @@
 services:
   server:
     build: ./server
-    image: buzzer-server
     container_name: buzzer-server
     ports:
       - "3001:3001"
@@ -14,10 +13,9 @@ services:
 
   client:
     build: ./client
-    image: buzzer-client
     container_name: buzzer-client
     ports:
-      - "80:80"
+      - "3000:3000"
     depends_on:
       - server
     networks:
